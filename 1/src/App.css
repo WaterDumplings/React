@@ -36,3 +36,32 @@
     transform: rotate(360deg);
   }
 }
+
+.black-nav {
+  display: flex;
+  background-color: black;
+  color: #fff;
+  padding-left: 20px;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.list {
+  padding-left: 20px;
+  text-align: left;
+  border-bottom: 1px solid gray;
+}
+.womanButton {
+  float: right;
+  margin-right: 400px;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.modal {
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #eee;
+  text-align: left;
+}
