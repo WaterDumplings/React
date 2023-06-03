@@ -51,17 +51,24 @@ function App() {
         글제목.map(function(a, i){
           return (
             <div className='list' key = {i}>
-            <h4 onClick={() => {
-              setModal(!modal)
-            }}>{ a } <span onClick={() => {따봉변경[i](따봉[i]+1)}}>👍</span> {따봉[i]}  </h4>
-            <p>{날짜[i]}</p>
-          </div>
+              
+              <h4 onClick={() => {
+                setModal(!modal)
+              }}>{ a } <span onClick={() => {
+                let copy3 = [...따봉]
+                copy3[i] += 1
+                따봉변경(copy3)
+                }
+                }>👍</span> {따봉[i]}  </h4>
+
+              <p>{날짜[i]}</p>
+            </div>
           )
         })
       }
 
       {
-        modal == true ? <Modal/> : null
+        modal == true ? <Modal 글제목 = {글제목} /> : null
       }
 
     </div>
@@ -75,12 +82,15 @@ function App() {
     2. 큰 페이지들 만들때
     3. 자주변경 되는 것들
 */
-function Modal(){
+
+function Modal(props){
+  console.log(props)
   return (
     <div className='modal'>
-      <h4>제목</h4>
+      <h4>{props.글제목[0]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <button>글수정</button>
     </div>
   )
 }
