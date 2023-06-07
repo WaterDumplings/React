@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { useState } from 'react';
+import React, { useState } from 'react';
 
 function App() {
 
@@ -10,7 +10,8 @@ function App() {
   let [날짜, c] = useState(['2023년 5월 10일', '2023년 5월 20일', '2023년 5월 25일', '2023년 5월 27일']);
   let [따봉, 따봉변경] = useState([0, 0, 0, 0]);
   let [modal, setModal] = useState(false);
-
+  let [title, setTitle] = useState(0);
+  let [입력값, 입력값변경] = useState('');
 
   return (
     <div className="App">
@@ -53,8 +54,10 @@ function App() {
             <div className='list' key = {i}>
               
               <h4 onClick={() => {
-                setModal(!modal)
-              }}>{ a } <span onClick={() => {
+                setModal(!modal); setTitle(i)
+              }}>{ a } 
+              <span onClick={(e) => {
+                e.stopPropagation()
                 let copy3 = [...따봉]
                 copy3[i] += 1
                 따봉변경(copy3)
@@ -62,14 +65,29 @@ function App() {
                 }>👍</span> {따봉[i]}  </h4>
 
               <p>{날짜[i]}</p>
+              <button onClick={() => {
+                let copy = [...글제목];
+                copy.splice(i, 1);
+                글제목변경(copy)
+              }}> 삭제 </button>
             </div>
           )
         })
       }
 
+      <input onChange={(e) => {입력값변경(e.target.value); console.log(입력값)}} />
+
+      <button onClick={() => { 
+        let copy = [...글제목];
+        copy.unshift(입력값);
+        글제목변경(copy)
+       }}> 글발행 </button>
+
       {
-        modal == true ? <Modal 글제목 = {글제목} /> : null
+        modal == true ? <Modal title = {title} 글제목변경 = {글제목변경} 글제목 = {글제목} /> : null
       }
+
+      <Modal2/>
 
     </div>
   );
@@ -87,12 +105,30 @@ function Modal(props){
   console.log(props)
   return (
     <div className='modal'>
-      <h4>{props.글제목[0]}</h4>
+      <h4>{props.글제목[props.title]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
-      <button>글수정</button>
+      <button> 글수정 </button>
     </div>
   )
+}
+
+class Modal2 extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      name : 'Kim', 
+      age : 20
+    }
+  }
+  render(){
+    return (
+      <div>안녕??{this.state.age}
+      <button onClick={() => { 
+        this.setState({age : 21})
+       }}>gg</button></div>
+    )
+  }
 }
 
 export default App;
