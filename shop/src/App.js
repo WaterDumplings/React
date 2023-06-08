@@ -13,6 +13,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './routes/Detail'
 import axios from 'axios'
 import loding from './images/loding.gif'
+import Cart from './routes/Cart.js';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
             <Nav.Link onClick={() => { navigate('/') }}>Home</Nav.Link>
             <Nav.Link onClick={() => { navigate('/detail') }}>detail</Nav.Link>
             <Nav.Link onClick={() => { navigate('/evnet') }}>evnet</Nav.Link>
+            <Nav.Link onClick={() => { navigate('/cart') }}>cart</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
@@ -47,7 +49,7 @@ function App() {
               {
                 shoes.map(function (a, i) {
                   return (
-                    <Content shoes={shoes[i]} i={i + 1} key = {i} />
+                    <Content shoes={shoes[i]} i={i + 1} key = {i} navigate = {navigate} />
                   )
                 })
               }
@@ -69,7 +71,6 @@ function App() {
               console.log('실패했습니다.')
             })
             }
-
             
            }}>더보깅</button>
           </>
@@ -87,8 +88,12 @@ function App() {
           <Route path='location' element={<div>회사위치임</div>} />
         </Route>
 
+        <Route path='/cart' element = {<Cart />} ></Route>
+
         <Route path='*' element={ <img src={pageError} width="80%" /> } />
       </Routes>
+
+      
       
     </div>
   );
@@ -115,7 +120,7 @@ function About() {
 function Content(props) {
   return (
     <Col sm>
-      <img src={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'} width="80%" onClick={() => {  }} />
+      <img src={'https://codingapple1.github.io/shop/shoes' + props.i + '.jpg'} width="80%" onClick={() => { props.navigate('/detail/' + (props.i-1)) }} />
       <h4>{props.shoes.title}</h4>
       <p>{props.shoes.price}</p>
     </Col>
