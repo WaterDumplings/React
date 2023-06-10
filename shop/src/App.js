@@ -1,13 +1,8 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import {Button, Nav, Navbar, Row, Col, Container} from 'react-bootstrap';
 import pageError from './images/404_page.jpg';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import data from './data.js';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom'
 import Detail from './routes/Detail'
@@ -17,10 +12,20 @@ import Cart from './routes/Cart.js';
 
 function App() {
 
+  useEffect(() => {
+    localStorage.setItem('watched', JSON.stringify([]))
+  })
+
+  let obj = {name : 'kim'}
+  localStorage.setItem('data', JSON.stringify(obj))
+  let 꺼낸거 = localStorage.getItem('data')
+  console.log(JSON.parse(꺼낸거));
+
   let [shoes, setShoes] = useState(data)
   // 페이지 이동을 도와줌
   let navigate = useNavigate();
   let [modalLoding, setModalLoding] = useState(false);
+  
 
   return (
     <div className="App">

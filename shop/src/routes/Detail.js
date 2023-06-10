@@ -2,12 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import Nav from 'react-bootstrap/Nav';
+import { addItem } from '../store.js'
+import { useDispatch } from "react-redux";
 
 function Detail(props) {
   let [count, setCount] = useState(0)
   let [modal, setModal] = useState(true);
   let [num, setNum] = useState('');
   let [tab, setTab] = useState(0);
+  let dispatch = useDispatch()
 
   let {id} = useParams();
   let findContent = props.shoes.find(function(x) {
@@ -49,7 +52,9 @@ function Detail(props) {
           <h4 className="pt-5">{findContent.title}</h4>
           <p>{findContent.content}</p>
           <p>{findContent.price}원</p>
-          <button className="btn btn-danger">주문하기</button>
+          <button className="btn btn-danger" onClick={() => {
+            dispatch(addItem({ id: 1, name: 'Red Knit', count: 1 }))
+          }}>주문하기</button>
         </div>
       </div>
 

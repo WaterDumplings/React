@@ -1,17 +1,8 @@
 import { configureStore, createSlice } from '@reduxjs/toolkit'
+import user from './store/userSlice'
+import { act } from 'react-dom/test-utils'
 
 
-let user = createSlice({
-  name : 'user', 
-  initialState : '김',
-  reducers : {
-    changeName(state) {
-      return state + '채원' 
-    }
-  }
-})
-
-export let { changeName } = user.actions
 
 let stock = createSlice({
   name : 'stock', 
@@ -23,9 +14,19 @@ let basket = createSlice({
   initialState: [
     { id: 0, name: 'White and Black', count: 2 },
     { id: 2, name: 'Grey Yordan', count: 1 }
-  ]
+  ], 
+  reducers : {
+    addCount(state, action) {
+      let 번호 = state.findIndex((a) => { return a.id === action.payload })
+      state[번호].count++
+    }, 
+    addItem(state, action) {
+      state.push(action.payload)
+    }
+  }
 })
 
+export let { addCount, addItem } = basket.actions
 
 export default configureStore({
   reducer: { 
